@@ -129,15 +129,3 @@ def good_suffix_rule(pat, index_mismatch, good_suffix, match_prefix):
         stop = match_prefix[index_mismatch+1] - 1
         # print("index of mismatch is", index_mismatch, "start =", start, "stop =", stop)
         return m - match_prefix[index_mismatch+1], start, stop
-
-txt1 = "sabbasabbayabba"
-pat1 = "sabbayabba"
-bruh = "     sabbayabba"
-print(boyer_moore(pat1,txt1))
-
-txt2 = "acxcbbacababacabazyllllllllllllll"
-pat2 = "acababacaba"
-bruh = "      acababacaba"
-brah = "            acababacaba"
-brut = "                       acababacaba"
-print(boyer_moore(pat2,txt2))
