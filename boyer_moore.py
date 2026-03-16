@@ -87,15 +87,13 @@ def preprocess_good_suffix_rule(pat):
 def preprocess_match_prefix_rule(pat):
     z_arr = z_algorithm_for_boyer_moore(pat)
     m = len(pat)
-    match_prefix = [0] * m
+    match_prefix = [0] * (m+1)
     longest = 0
     for curr_index in range(m-1, -1, -1):
         if curr_index + z_arr[curr_index] - 1 == m - 1:
             longest = z_arr[curr_index]
         match_prefix[curr_index] = longest
     
-    #index m+1 needs to be initalized to 0
-    match_prefix.append(0)
     #first index should be the entire length of the string itself
     match_prefix[0] = m
 
@@ -117,15 +115,20 @@ def bad_char_rule(shift, curr_index_pat, txt, rx_table):
 def good_suffix_rule(pat, index_mismatch, good_suffix, match_prefix):
     m = len(pat)
     if good_suffix[index_mismatch+1] > 0:
-        # print("good suffix")
+        print("good suffix")
         length_suffix = m - (index_mismatch + 1)
         start = good_suffix[index_mismatch+1] - length_suffix + 1
         stop = good_suffix[index_mismatch+1]
         # print("index of mismatch is", index_mismatch, "start =", start, "stop =", stop)
         return m - good_suffix[index_mismatch+1] - 1, start, stop
     elif good_suffix[index_mismatch+1] == 0:
-        # print("match prefix")
+        print("match prefix")
         start = 0
         stop = match_prefix[index_mismatch+1] - 1
         # print("index of mismatch is", index_mismatch, "start =", start, "stop =", stop)
         return m - match_prefix[index_mismatch+1], start, stop
+    
+pat = "abab"
+pat1 = "acababacaba"
+txt = "labcdeflabc"
+print(preprocess_match_prefix_rule(pat1))
