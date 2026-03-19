@@ -19,17 +19,16 @@ def boyer_moore(pat, txt):
     # print("good suffx:", good_suffix)
     # print("match prefix:", match_prefix)
 
-    shift = 0
-
     # comparison = 0
 
+    shift = 0
     #Iteration block
     while shift <= m - n:
         # print("current shift is", shift)
         curr_index_pat = n - 1
         while curr_index_pat >= 0 and pat[curr_index_pat] == txt[shift + curr_index_pat]:
             # print(curr_index_pat)
-            if curr_index_pat <= stop + 1:
+            if curr_index_pat == stop + 1:
                 curr_index_pat = start - 1  # skip the entire window
 
                 #Wrote this to check total number of comparisons
@@ -37,7 +36,6 @@ def boyer_moore(pat, txt):
                 # print(comparison)
 
             else:
-
                 curr_index_pat -= 1
 
                 #Wrote this to check total number of comparisons
@@ -63,7 +61,6 @@ def boyer_moore(pat, txt):
             shift += n - match_prefix[1]
             start = 0
             stop = match_prefix[1] - 1
-    
     return result
 
 #########################
@@ -130,14 +127,14 @@ def bad_char_rule(shift, curr_index_pat, txt, rx_table):
 
 def good_suffix_rule(pat, index_mismatch, good_suffix, match_prefix):
     m = len(pat)
-    if good_suffix[index_mismatch+1] > 0:
+    if good_suffix[index_mismatch+1] != -1:
         # print("good suffix")
         length_suffix = m - (index_mismatch + 1)
         start = good_suffix[index_mismatch+1] - length_suffix + 1
         stop = good_suffix[index_mismatch+1]
         # print("index of mismatch is", index_mismatch, "start =", start, "stop =", stop)
-        return (m-1) - good_suffix[index_mismatch+1], start, stop
-    elif good_suffix[index_mismatch+1] == 0:
+        return m - good_suffix[index_mismatch+1] - 1, start, stop
+    else:
         # print("match prefix")
         start = 0
         stop = match_prefix[index_mismatch+1] - 1
@@ -147,5 +144,5 @@ def good_suffix_rule(pat, index_mismatch, good_suffix, match_prefix):
 pat = "abcdeabcdeabcde"
 txt = "abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde"
 # print(preprocess_good_suffix_rule(pat))
-print(boyer_moore(pat,txt))
+# print(boyer_moore(pat,txt))
 # print(preprocess_match_prefix_rule(pat))
