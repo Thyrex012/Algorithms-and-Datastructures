@@ -146,3 +146,11 @@ txt = "abcdeabcdeabcdeabcdeabcdeabcdeabcdeabcde"
 # print(preprocess_good_suffix_rule(pat))
 # print(boyer_moore(pat,txt))
 # print(preprocess_match_prefix_rule(pat))
+
+pat1 = "aaaab"
+txt1 = "aaaaaaaaaaaaaaaaab"
+# print(boyer_moore(pat1, txt1))
+
+pattern = "aaaab"
+text    = "aaaaaaaaaaaaaaaaab"
+# print(boyer_moore(pattern,text))

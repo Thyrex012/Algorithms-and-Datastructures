@@ -1,11 +1,11 @@
 import unittest
 from boyer_moore import boyer_moore
 
-#Made by chatgpt
 class TestBoyerMoore(unittest.TestCase):
 
     def test_cases(self):
         tests = [
+            # --- Original tests ---
             ("abc", "abc", [0]),
             ("abc", "abcabcabc", [0, 3, 6]),
             ("abc", "aaaaaa", []),
@@ -23,6 +23,28 @@ class TestBoyerMoore(unittest.TestCase):
             ("xyz", "aaaaaaaaaaaaaaaaaaaa", []),
             ("abba", "abbabbaabba", [0, 3, 7]),
             ("aaaab", "aaaaaaaaaab", [6]),
+
+            # --- Harder / adversarial tests ---
+            ("aaaaa", "aaaaaaaaaa", [0,1,2,3,4,5]),
+            ("aaaab", "aaaaaaaaaaaaaaaaab", [13]),
+            ("ababaca", "ababababacababaca", [4, 10]),
+            ("abacab", "abacaabaccabacabaabb", [10]),
+            ("abcab", "abcabcabcab", [0,3,6]),
+            ("abcd", "abcabcabcabcabc", []),
+            ("abcdeabc", "abcdeababcdeabcabcdeabc", [7, 15]),
+            ("ababab", "abababababab", [0,2,4,6]),
+            ("xyz", "aaaaaaaaaaaaaaaaaaaaaaaaxyz", [24]),
+            ("zabc", "aaaaaaaaaaaaaaaaaaaaaaaaazabc", [25]),
+            ("aabaaac", "aabaaabaaabaaac", [8]),
+            ("abcab", "abcxxabcababcab", [5,10]),
+            ("abaaba", "abaabaabaaba", [0,3,6]),
+            ("aaaaab", "aaaaaaaaaaaaaaaaaaaa", []),
+            ("abcde", "zabcdeabcdeabcdez", [1,6,11]),
+            ("abacabab", "abacabababacabab", [0,8]),
+            ("babab", "ababababababab", [1,3,5,7,9]),
+            ("abcdefg", "abcdefabcdefabcdefg", [12]),
+            ("abcabc", "abcabcabcabc", [0,3,6]),
+            ("aaaaabaaaaa", "aaaaabaaaaaaaaaabaaaaa", [0,11]),
         ]
 
         for pattern, text, expected in tests:
@@ -30,7 +52,6 @@ class TestBoyerMoore(unittest.TestCase):
                 self.assertEqual(boyer_moore(pattern, text), expected)
 
     def test_long_string(self):
-        # Very long text
         text = "abcde" * 10000 + "xyzabcde" + "abcde" * 10000
         pattern = "xyzabcde"
         expected = [10000 * 5]  # 50,000
